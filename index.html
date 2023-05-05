@@ -177,7 +177,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2023-05-05 15:40:02 / Modified: 15:57:45" itemprop="dateCreated datePublished" datetime="2023-05-05T15:40:02+08:00">2023-05-05</time>
+      <time title="Created: 2023-05-05 15:40:02 / Modified: 15:59:55" itemprop="dateCreated datePublished" datetime="2023-05-05T15:40:02+08:00">2023-05-05</time>
     </span>
 
   
@@ -187,14 +187,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>21</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>2 mins.</span>
     </span>
 </div>
 
@@ -207,7 +207,12 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="段落用法"><a href="#段落用法" class="headerlink" title="段落用法"></a>段落用法</h1><p>这是第一段</p>
 <p>这是第二段<br>换行了</p>
-<p><code>7777</code></p>
+<p>&#96;import numpy as np<br>import matplotlib.pyplot as plt</p>
+<p>def SGD_optimize(y_i,x_i,w,b,C):<br>    ‘’’<br>    :param y_i: 数据点的label<br>    :param x_i: 数据点的坐标<br>    :param w:  行向量<br>    :param b:   常数项<br>    :param C: 正则化系数<br>    :return: gradient<br>    ‘’’<br>    if y_i*(np.dot(w,x_i.T)+b)&lt;1:<br>        return w-C<em>y_i<em>x_i,-C</em>y_i<br>    else:<br>        return w,0<br>def SVM(X,y,C,w,b,alpha&#x3D;0.001,N&#x3D;10000):<br>    ‘’’<br>    :param X:数据集 Nxfeatures<br>    :param y: label<br>    :param C: 惩罚系数<br>    :param w: 行向量<br>    :param b: 常数项<br>    :param alpha: 学习率<br>    :param N: 最大迭代次数<br>    :return:<br>    ‘’’<br>    #param N:最大迭代次数<br>    num_x&#x3D;len(X)<br>    loss_list&#x3D;[]<br>    for k in range(N):<br>        i&#x3D;np.random.randint(0,num_x) # 0-num_x-1 中取一个数据点，为样本点的索引<br>        gradient_w,gradient_b&#x3D;SGD_optimize(y[i],X[i],w,b,C)<br>        w&#x3D;w-alpha<em>gradient_w<br>        b&#x3D;b-alpha</em>gradient_b<br>        heye&#x3D;1-y*(np.dot(w,X.T)+b)<br>        loss_list.append(np.square(w)&#x2F;2+C*np.sum(heye[heye&gt;0]))<br>        # alpha&#x3D;alpha<br>    return w,b,loss_list<br>def predict(X,w,b):<br>    y_hat&#x3D;np.dot(w,X.T)+b<br>    y_hat[y_hat&lt;0]&#x3D;-1<br>    y_hat[y_hat&gt;0]&#x3D;1<br>    return y_hat<br>#分类模型，误差指标评价<br>def error_eval_classification(y_hat,y,method):<br>    if method&#x3D;&#x3D;’ErrorRate’:<br>        return np.sum(y_hat!&#x3D;y)&#x2F;len(y)<br>    elif method&#x3D;&#x3D;’Accuracy’:<br>        return np.sum(y_hat&#x3D;&#x3D;y)&#x2F;len(y)<br>    elif method&#x3D;&#x3D;’Recall’: #查全率<br>        condition&#x3D;(y!&#x3D;y_hat)&amp;(y_hat&#x3D;&#x3D;0) #假反<br>        return np.sum(y&#x3D;&#x3D;1)&#x2F;(np.sum(y&#x3D;&#x3D;1)+len(y_hat[condition]))<br>    elif method&#x3D;&#x3D;’Precision’: #差准率<br>        condition&#x3D;(y!&#x3D;y_hat)&amp;(y_hat&#x3D;&#x3D;1) #假正<br>        return np.sum(y&#x3D;&#x3D;1)&#x2F;(np.sum(y&#x3D;&#x3D;1)+len(y_hat[condition]))<br>    elif method&#x3D;&#x3D;’F1’:<br>        P&#x3D;error_eval_classification(y_hat,y,method&#x3D;’Precision’)<br>        R&#x3D;error_eval_classification(y_hat, y, method&#x3D;’Recall’)<br>        return 2</em>P*R&#x2F;(P+R)</p>
+<p>data&#x3D;np.loadtxt(‘experiment_06_training_set.csv’,delimiter&#x3D;’,’)<br>X&#x3D;data[:,[0,1]]<br>y&#x3D;data[:,-1]<br>w&#x3D;np.zeros(X[0].shape)<br>b&#x3D;0<br>C&#x3D;100<br>N&#x3D;1000<br>alpha&#x3D;0.001<br>w,b,loss&#x3D;SVM(X,y,C,w,b,alpha&#x3D;alpha,N&#x3D;N)<br>y_hat&#x3D;predict(X,w,b)<br>accuracy&#x3D;error_eval_classification(y_hat,y,method&#x3D;’Accuracy’)<br>print(w,b,accuracy)</p>
+<p>plt.figure(1)<br>plt.scatter(X[:,0],X[:,1],c&#x3D;y)<br>x_&#x3D;np.arange(-1.5,4,1)<br>y_&#x3D;-w[0]&#x2F;w[1]*x_-b&#x2F;w[1]<br>plt.plot(x_,y_,c&#x3D;’red’)<br>plt.show()</p>
+<p>plt.figure(2)<br>plt.plot(np.arange(N),loss,c&#x3D;’red’)<br>plt.show()</p>
+<p>&#96;</p>
 
       
     </div>
@@ -344,14 +349,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Word count total: </span>
-    <span title="Word count total">0k</span>
+    <span title="Word count total">3k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">1 mins.</span>
+    <span title="Reading time total">2 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
