@@ -1,24 +1,21 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"sunwuzhou03.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sunwuzhou03">
+  <meta name="keywords" content="">
+  
     <meta name="description" content="西南交通大学机器学习实验课代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机">
@@ -31,322 +28,616 @@
 <meta property="article:author" content="sunwuzhou03">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="分类">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>支持向量机 - 孙武周</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<link rel="canonical" href="https://sunwuzhou03.github.io/2023/05/05/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://sunwuzhou03.github.io/2023/05/05/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/","path":"2023/05/05/支持向量机/","title":"支持向量机"}</script>
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>支持向量机 | 孙武周</title>
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sunwuzhou03.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
+<body>
+  
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+  <header>
+    
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">孙武周</p>
-      <i class="logo-line"></i>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
     </a>
-      <p class="site-subtitle" itemprop="description">SUN WU ZHOU</p>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-english-site"><a href="https://sunwuzhou03.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English Site</a></li>
-  </ul>
 </nav>
 
-
-
-
-</header>
-        
   
-  <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="nav-number">1.</span> <span class="nav-text">代码如下</span></a></li></ol></div>
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="支持向量机"></span>
+          
         </div>
-        <!--/noindex-->
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="sunwuzhou03"
-      src="/images/avatar.gif">
-  <p class="site-author-name" itemprop="name">sunwuzhou03</p>
-  <div class="site-description" itemprop="description">这里是我的中文博客，中英文博客更新并不同步，内容也有所侧重！</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">13</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-05 15:40" pubdate>
+          2023年5月5日 下午
+        </time>
+      </span>
+    
+  </div>
 
-        </div>
-      </div>
-        <div class="back-to-top animated" role="button" aria-label="返回顶部">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-    </div>
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
 
     
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">支持向量机</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">SGD_optimize</span>(<span class="hljs-params">y_i,x_i,w,b,C</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    :param y_i: 数据点的label</span><br><span class="hljs-string">    :param x_i: 数据点的坐标</span><br><span class="hljs-string">    :param w:  行向量</span><br><span class="hljs-string">    :param b:   常数项</span><br><span class="hljs-string">    :param C: 正则化系数</span><br><span class="hljs-string">    :return: gradient</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-keyword">if</span> y_i*(np.dot(w,x_i.T)+b)&lt;<span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> w-C*y_i*x_i,-C*y_i<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> w,<span class="hljs-number">0</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">SVM</span>(<span class="hljs-params">X,y,C,w,b,alpha=<span class="hljs-number">0.001</span>,N=<span class="hljs-number">10000</span></span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    :param X:数据集 Nxfeatures</span><br><span class="hljs-string">    :param y: label</span><br><span class="hljs-string">    :param C: 惩罚系数</span><br><span class="hljs-string">    :param w: 行向量</span><br><span class="hljs-string">    :param b: 常数项</span><br><span class="hljs-string">    :param alpha: 学习率</span><br><span class="hljs-string">    :param N: 最大迭代次数</span><br><span class="hljs-string">    :return:</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-comment">#param N:最大迭代次数</span><br>    num_x=<span class="hljs-built_in">len</span>(X)<br>    loss_list=[]<br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>        i=np.random.randint(<span class="hljs-number">0</span>,num_x) <span class="hljs-comment"># 0-num_x-1 中取一个数据点，为样本点的索引</span><br>        gradient_w,gradient_b=SGD_optimize(y[i],X[i],w,b,C)<br>        w=w-alpha*gradient_w<br>        b=b-alpha*gradient_b<br>        heye=<span class="hljs-number">1</span>-y*(np.dot(w,X.T)+b)<br>        loss_list.append(np.square(w)/<span class="hljs-number">2</span>+C*np.<span class="hljs-built_in">sum</span>(heye[heye&gt;<span class="hljs-number">0</span>]))<br>        <span class="hljs-comment"># alpha=alpha</span><br>    <span class="hljs-keyword">return</span> w,b,loss_list<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">X,w,b</span>):<br>    y_hat=np.dot(w,X.T)+b<br>    y_hat[y_hat&lt;<span class="hljs-number">0</span>]=-<span class="hljs-number">1</span><br>    y_hat[y_hat&gt;<span class="hljs-number">0</span>]=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> y_hat<br><span class="hljs-comment">#分类模型，误差指标评价</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">error_eval_classification</span>(<span class="hljs-params">y_hat,y,method</span>):<br>    <span class="hljs-keyword">if</span> method==<span class="hljs-string">&#x27;ErrorRate&#x27;</span>:<br>        <span class="hljs-keyword">return</span> np.<span class="hljs-built_in">sum</span>(y_hat!=y)/<span class="hljs-built_in">len</span>(y)<br>    <span class="hljs-keyword">elif</span> method==<span class="hljs-string">&#x27;Accuracy&#x27;</span>:<br>        <span class="hljs-keyword">return</span> np.<span class="hljs-built_in">sum</span>(y_hat==y)/<span class="hljs-built_in">len</span>(y)<br>    <span class="hljs-keyword">elif</span> method==<span class="hljs-string">&#x27;Recall&#x27;</span>: <span class="hljs-comment">#查全率</span><br>        condition=(y!=y_hat)&amp;(y_hat==<span class="hljs-number">0</span>) <span class="hljs-comment">#假反</span><br>        <span class="hljs-keyword">return</span> np.<span class="hljs-built_in">sum</span>(y==<span class="hljs-number">1</span>)/(np.<span class="hljs-built_in">sum</span>(y==<span class="hljs-number">1</span>)+<span class="hljs-built_in">len</span>(y_hat[condition]))<br>    <span class="hljs-keyword">elif</span> method==<span class="hljs-string">&#x27;Precision&#x27;</span>: <span class="hljs-comment">#差准率</span><br>        condition=(y!=y_hat)&amp;(y_hat==<span class="hljs-number">1</span>) <span class="hljs-comment">#假正</span><br>        <span class="hljs-keyword">return</span> np.<span class="hljs-built_in">sum</span>(y==<span class="hljs-number">1</span>)/(np.<span class="hljs-built_in">sum</span>(y==<span class="hljs-number">1</span>)+<span class="hljs-built_in">len</span>(y_hat[condition]))<br>    <span class="hljs-keyword">elif</span> method==<span class="hljs-string">&#x27;F1&#x27;</span>:<br>        P=error_eval_classification(y_hat,y,method=<span class="hljs-string">&#x27;Precision&#x27;</span>)<br>        R=error_eval_classification(y_hat, y, method=<span class="hljs-string">&#x27;Recall&#x27;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>*P*R/(P+R)<br><br>data=np.loadtxt(<span class="hljs-string">&#x27;experiment_06_training_set.csv&#x27;</span>,delimiter=<span class="hljs-string">&#x27;,&#x27;</span>)<br>X=data[:,[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>]]<br>y=data[:,-<span class="hljs-number">1</span>]<br>w=np.zeros(X[<span class="hljs-number">0</span>].shape)<br>b=<span class="hljs-number">0</span><br>C=<span class="hljs-number">100</span><br>N=<span class="hljs-number">1000</span><br>alpha=<span class="hljs-number">0.001</span><br>w,b,loss=SVM(X,y,C,w,b,alpha=alpha,N=N)<br>y_hat=predict(X,w,b)<br>accuracy=error_eval_classification(y_hat,y,method=<span class="hljs-string">&#x27;Accuracy&#x27;</span>)<br><span class="hljs-built_in">print</span>(w,b,accuracy)<br><br><br>plt.figure(<span class="hljs-number">1</span>)<br>plt.scatter(X[:,<span class="hljs-number">0</span>],X[:,<span class="hljs-number">1</span>],c=y)<br>x_=np.arange(-<span class="hljs-number">1.5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>)<br>y_=-w[<span class="hljs-number">0</span>]/w[<span class="hljs-number">1</span>]*x_-b/w[<span class="hljs-number">1</span>]<br>plt.plot(x_,y_,c=<span class="hljs-string">&#x27;red&#x27;</span>)<br>plt.show()<br><br>plt.figure(<span class="hljs-number">2</span>)<br>plt.plot(np.arange(N),loss,c=<span class="hljs-string">&#x27;red&#x27;</span>)<br>plt.show()<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E9%AA%8C/" class="category-chain-item">机器学习实验</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E5%88%86%E7%B1%BB/" class="print-no-link">#分类</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>支持向量机</div>
+      <div>https://sunwuzhou03.github.io/2023/05/05/支持向量机/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sunwuzhou03</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/05/hexo%E8%87%AA%E7%94%A8%E5%91%BD%E4%BB%A4/" title="hexo自用命令">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hexo自用命令</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
   </aside>
 
 
     </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sunwuzhou03.github.io/2023/05/05/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sunwuzhou03">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙武周">
-      <meta itemprop="description" content="这里是我的中文博客，中英文博客更新并不同步，内容也有所侧重！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="支持向量机 | 孙武周">
-      <meta itemprop="description" content="西南交通大学机器学习实验课代码">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          支持向量机
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-05 15:40:02" itemprop="dateCreated datePublished" datetime="2023-05-05T15:40:02+08:00">2023-05-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-06 21:18:26" itemprop="dateModified" datetime="2023-05-06T21:18:26+08:00">2023-05-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">机器学习实验</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
+  </div>
 </div>
 
-            <div class="post-description">西南交通大学机器学习实验课代码</div>
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><h1 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SGD_optimize</span>(<span class="params">y_i,x_i,w,b,C</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    :param y_i: 数据点的label</span></span><br><span class="line"><span class="string">    :param x_i: 数据点的坐标</span></span><br><span class="line"><span class="string">    :param w:  行向量</span></span><br><span class="line"><span class="string">    :param b:   常数项</span></span><br><span class="line"><span class="string">    :param C: 正则化系数</span></span><br><span class="line"><span class="string">    :return: gradient</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> y_i*(np.dot(w,x_i.T)+b)&lt;<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> w-C*y_i*x_i,-C*y_i</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> w,<span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">SVM</span>(<span class="params">X,y,C,w,b,alpha=<span class="number">0.001</span>,N=<span class="number">10000</span></span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    :param X:数据集 Nxfeatures</span></span><br><span class="line"><span class="string">    :param y: label</span></span><br><span class="line"><span class="string">    :param C: 惩罚系数</span></span><br><span class="line"><span class="string">    :param w: 行向量</span></span><br><span class="line"><span class="string">    :param b: 常数项</span></span><br><span class="line"><span class="string">    :param alpha: 学习率</span></span><br><span class="line"><span class="string">    :param N: 最大迭代次数</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="comment">#param N:最大迭代次数</span></span><br><span class="line">    num_x=<span class="built_in">len</span>(X)</span><br><span class="line">    loss_list=[]</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">        i=np.random.randint(<span class="number">0</span>,num_x) <span class="comment"># 0-num_x-1 中取一个数据点，为样本点的索引</span></span><br><span class="line">        gradient_w,gradient_b=SGD_optimize(y[i],X[i],w,b,C)</span><br><span class="line">        w=w-alpha*gradient_w</span><br><span class="line">        b=b-alpha*gradient_b</span><br><span class="line">        heye=<span class="number">1</span>-y*(np.dot(w,X.T)+b)</span><br><span class="line">        loss_list.append(np.square(w)/<span class="number">2</span>+C*np.<span class="built_in">sum</span>(heye[heye&gt;<span class="number">0</span>]))</span><br><span class="line">        <span class="comment"># alpha=alpha</span></span><br><span class="line">    <span class="keyword">return</span> w,b,loss_list</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">X,w,b</span>):</span><br><span class="line">    y_hat=np.dot(w,X.T)+b</span><br><span class="line">    y_hat[y_hat&lt;<span class="number">0</span>]=-<span class="number">1</span></span><br><span class="line">    y_hat[y_hat&gt;<span class="number">0</span>]=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> y_hat</span><br><span class="line"><span class="comment">#分类模型，误差指标评价</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">error_eval_classification</span>(<span class="params">y_hat,y,method</span>):</span><br><span class="line">    <span class="keyword">if</span> method==<span class="string">&#x27;ErrorRate&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">sum</span>(y_hat!=y)/<span class="built_in">len</span>(y)</span><br><span class="line">    <span class="keyword">elif</span> method==<span class="string">&#x27;Accuracy&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">sum</span>(y_hat==y)/<span class="built_in">len</span>(y)</span><br><span class="line">    <span class="keyword">elif</span> method==<span class="string">&#x27;Recall&#x27;</span>: <span class="comment">#查全率</span></span><br><span class="line">        condition=(y!=y_hat)&amp;(y_hat==<span class="number">0</span>) <span class="comment">#假反</span></span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">sum</span>(y==<span class="number">1</span>)/(np.<span class="built_in">sum</span>(y==<span class="number">1</span>)+<span class="built_in">len</span>(y_hat[condition]))</span><br><span class="line">    <span class="keyword">elif</span> method==<span class="string">&#x27;Precision&#x27;</span>: <span class="comment">#差准率</span></span><br><span class="line">        condition=(y!=y_hat)&amp;(y_hat==<span class="number">1</span>) <span class="comment">#假正</span></span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">sum</span>(y==<span class="number">1</span>)/(np.<span class="built_in">sum</span>(y==<span class="number">1</span>)+<span class="built_in">len</span>(y_hat[condition]))</span><br><span class="line">    <span class="keyword">elif</span> method==<span class="string">&#x27;F1&#x27;</span>:</span><br><span class="line">        P=error_eval_classification(y_hat,y,method=<span class="string">&#x27;Precision&#x27;</span>)</span><br><span class="line">        R=error_eval_classification(y_hat, y, method=<span class="string">&#x27;Recall&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*P*R/(P+R)</span><br><span class="line"></span><br><span class="line">data=np.loadtxt(<span class="string">&#x27;experiment_06_training_set.csv&#x27;</span>,delimiter=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">X=data[:,[<span class="number">0</span>,<span class="number">1</span>]]</span><br><span class="line">y=data[:,-<span class="number">1</span>]</span><br><span class="line">w=np.zeros(X[<span class="number">0</span>].shape)</span><br><span class="line">b=<span class="number">0</span></span><br><span class="line">C=<span class="number">100</span></span><br><span class="line">N=<span class="number">1000</span></span><br><span class="line">alpha=<span class="number">0.001</span></span><br><span class="line">w,b,loss=SVM(X,y,C,w,b,alpha=alpha,N=N)</span><br><span class="line">y_hat=predict(X,w,b)</span><br><span class="line">accuracy=error_eval_classification(y_hat,y,method=<span class="string">&#x27;Accuracy&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(w,b,accuracy)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.figure(<span class="number">1</span>)</span><br><span class="line">plt.scatter(X[:,<span class="number">0</span>],X[:,<span class="number">1</span>],c=y)</span><br><span class="line">x_=np.arange(-<span class="number">1.5</span>,<span class="number">4</span>,<span class="number">1</span>)</span><br><span class="line">y_=-w[<span class="number">0</span>]/w[<span class="number">1</span>]*x_-b/w[<span class="number">1</span>]</span><br><span class="line">plt.plot(x_,y_,c=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">plt.figure(<span class="number">2</span>)</span><br><span class="line">plt.plot(np.arange(N),loss,c=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
-              <a href="/tags/%E5%88%86%E7%B1%BB/" rel="tag"># 分类</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-            </div>
-            <div class="post-nav-item">
-                <a href="/2023/05/05/hexo%E8%87%AA%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="hexo自用命令">
-                  hexo自用命令 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
+  </div>
 </div>
 
+    
 
-
-
-
-
-</div>
+    
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="footer-inner">
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">sunwuzhou03</span>
-</div>
-<div class="wordcount">
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
-    </span>
-      <span>站点总字数：</span>
-    <span title="站点总字数">122k</span>
-  </span>
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-      <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:51</span>
-  </span>
-</div>
-
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+  
+  
+</div>
+
   </footer>
 
+  <!-- Scripts -->
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
 
 
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
 
 
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
