@@ -1,338 +1,688 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/en/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/en/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/en/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/en/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"sunwuzhou03.github.io","root":"/en/","images":"/en/images","scheme":"Mist","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/en/js/config.js"></script>
-
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="sunwuzhou03">
+  <meta name="keywords" content="">
+  
     <meta property="og:type" content="article">
 <meta property="og:title" content="Model Evaluation">
-<meta property="og:url" content="https://sunwuzhou03.github.io/en/2023/05/06/model%20evaluation/index.html">
-<meta property="og:site_name" content="SUN WU ZHOU">
-<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://sunwuzhou03.github.io/2023/05/06/model%20evaluation/index.html">
+<meta property="og:site_name" content="孙武周">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-06T13:37:02.000Z">
 <meta property="article:modified_time" content="2023-05-06T13:44:24.146Z">
 <meta property="article:author" content="sunwuzhou03">
 <meta property="article:tag" content="machine learning">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Model Evaluation - 孙武周</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<link rel="canonical" href="https://sunwuzhou03.github.io/en/2023/05/06/model%20evaluation/">
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://sunwuzhou03.github.io/en/2023/05/06/model%20evaluation/","path":"2023/05/06/model evaluation/","title":"Model Evaluation"}</script>
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Model Evaluation | SUN WU ZHOU</title>
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sunwuzhou03.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
-  <noscript>
-    <link rel="stylesheet" href="/en/css/noscript.css">
-  </noscript>
-</head>
+<body>
+  
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+  <header>
+    
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/en/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">SUN WU ZHOU</p>
-      <i class="logo-line"></i>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
     </a>
-      <p class="site-subtitle" itemprop="description">孙武周</p>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-中文网站"><a href="https://sunwuzhou03.github.io/" rel="section"><i class="fa fa-language fa-fw"></i>中文网站</a></li>
-  </ul>
 </nav>
 
-
-
-
-</header>
-        
   
-  <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-code-are-as-follows"><span class="nav-number">1.</span> <span class="nav-text">The code are as follows</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification"><span class="nav-number">1.1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression"><span class="nav-number">1.2.</span> <span class="nav-text">Regression</span></a></li></ol></li></ol></div>
+<div id="banner" class="banner" parallax=true
+     style="background: url('/source/images/a.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Model Evaluation"></span>
+          
         </div>
-        <!--/noindex-->
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="sunwuzhou03"
-      src="/en/images/avatar.gif">
-  <p class="site-author-name" itemprop="name">sunwuzhou03</p>
-  <div class="site-description" itemprop="description">This is my English blog. The content and updates are not synchronized with my English blog, and the focus may differ as well. </div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/en/archives/">
-          <span class="site-state-item-count">6</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/en/categories/">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/en/tags/">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-06 21:37" pubdate>
+          2023年5月6日 晚上
+        </time>
+      </span>
+    
+  </div>
 
-        </div>
-      </div>
-        <div class="back-to-top animated" role="button" aria-label="Back to top">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-    </div>
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
 
     
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          59 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Model Evaluation</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="The-code-are-as-follows"><a href="#The-code-are-as-follows" class="headerlink" title="The code are as follows"></a>The code are as follows</h1><h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> csv<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> numpy <span class="hljs-keyword">import</span> mat<br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> confusion_matrix, accuracy_score, recall_score, precision_score, f1_score<br><br><span class="hljs-comment"># 读取CSV文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;experiment_01_dataset_02.csv&#x27;</span>) <span class="hljs-keyword">as</span> csvfile:<br>    csvreader = csv.reader(csvfile)<br>    header = <span class="hljs-built_in">next</span>(csvreader)<br>    data = [row <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> csvreader]<br><br><span class="hljs-comment"># 将数据转换为NumPy数组</span><br>data = np.array(data).astype(<span class="hljs-built_in">float</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">CaculatePermance</span>(<span class="hljs-params">data</span>):<br>    accuracy = []<span class="hljs-comment">#精度</span><br>    error_rate=[]<span class="hljs-comment">#错误率</span><br>    precision=[]<span class="hljs-comment">#查准率</span><br>    recall=[]<span class="hljs-comment">#查全率</span><br>    F1=[]<span class="hljs-comment">#F1</span><br>    confusionmatrix=[]<span class="hljs-comment">#混淆矩阵</span><br>    tp=[]<span class="hljs-comment">#真正例</span><br>    fn=[]<span class="hljs-comment">#假反例</span><br>    fp=[]<span class="hljs-comment">#假正例</span><br>    tn=[]<span class="hljs-comment">#真反例</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,<span class="hljs-number">5</span>):<br>        <span class="hljs-comment">#利用逻辑运算进行错误率和准确率的计算</span><br>        accuracy.append(np.<span class="hljs-built_in">sum</span>(data[:, i] == data[:, <span class="hljs-number">1</span>]) / data.shape[<span class="hljs-number">0</span>])<br>        error_rate.append(np.<span class="hljs-built_in">sum</span>(data[:, i] != data[:, <span class="hljs-number">1</span>]) / data.shape[<span class="hljs-number">0</span>])<br>        <span class="hljs-comment">#利用位运算来计算混淆矩阵的参数</span><br>        tp.append(np.<span class="hljs-built_in">sum</span>((data[:, <span class="hljs-number">1</span>]==<span class="hljs-number">1</span>) &amp; (data[:, i]==<span class="hljs-number">1</span>)))<br>        fn.append(np.<span class="hljs-built_in">sum</span>((data[:, <span class="hljs-number">1</span>]==<span class="hljs-number">1</span>) &amp; (data[:, i]==<span class="hljs-number">0</span>)))<br>        fp.append(np.<span class="hljs-built_in">sum</span>((data[:, <span class="hljs-number">1</span>]==<span class="hljs-number">0</span>) &amp; (data[:, i]==<span class="hljs-number">1</span>)))<br>        tn.append(np.<span class="hljs-built_in">sum</span>((data[:, <span class="hljs-number">1</span>]==<span class="hljs-number">0</span>) &amp; (data[:, i]==<span class="hljs-number">0</span>)))<br>        <span class="hljs-comment">#根据混淆矩阵的参数计算查准率，查全率，F1</span><br>        precision.append((tp[i-<span class="hljs-number">2</span>])/(tp[i-<span class="hljs-number">2</span>]+fp[i-<span class="hljs-number">2</span>]))<br>        recall.append((tp[i-<span class="hljs-number">2</span>])/(tp[i-<span class="hljs-number">2</span>]+fn[i-<span class="hljs-number">2</span>]))<br>        F1.append((<span class="hljs-number">2</span>*precision[i-<span class="hljs-number">2</span>]*recall[i-<span class="hljs-number">2</span>])/(precision[i-<span class="hljs-number">2</span>]+recall[i-<span class="hljs-number">2</span>]))<br>        confusionmatrix.append([[tn[i-<span class="hljs-number">2</span>],fp[i-<span class="hljs-number">2</span>]],<br>                                 [fn[i-<span class="hljs-number">2</span>],tp[i-<span class="hljs-number">2</span>]]])<br>    <span class="hljs-keyword">return</span> error_rate,accuracy,precision,recall,F1,confusionmatrix<br><br>error_rate,accuracy,precision,recall,F1,confusionmatrix=CaculatePermance(data)<br><br><span class="hljs-built_in">print</span>(error_rate,accuracy,precision,recall,F1,confusionmatrix,sep=<span class="hljs-string">&#x27;\n&#x27;</span>)<br><br><span class="hljs-comment">#输出结果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[[tn fp]\n[fn tp]]&quot;</span>)<span class="hljs-comment">#混淆矩阵格式</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 1):\n&quot;</span>, mat(confusionmatrix[<span class="hljs-number">0</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 2):\n&quot;</span>, mat(confusionmatrix[<span class="hljs-number">1</span>]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 3):\n&quot;</span>, mat(confusionmatrix[<span class="hljs-number">2</span>]))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 1):&quot;</span>, accuracy[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 2):&quot;</span>, accuracy[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 3):&quot;</span>, accuracy[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 1):&quot;</span>, error_rate[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 2):&quot;</span>, error_rate[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 3):&quot;</span>, error_rate[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 1):&quot;</span>, precision[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 2):&quot;</span>, precision[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 3):&quot;</span>, precision[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 1):&quot;</span>, recall[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 2):&quot;</span>, recall[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 3):&quot;</span>, recall[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 1):&quot;</span>, F1[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 2):&quot;</span>, F1[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 3):&quot;</span>, F1[<span class="hljs-number">2</span>])<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-------------------------------------&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;sklearn caculate&quot;</span>)<br><br>y_true = data[:,<span class="hljs-number">1</span>]<br>predictions = data[:,<span class="hljs-number">1</span>:<span class="hljs-number">5</span>]<br><span class="hljs-comment"># 将真实标签转化为二元格式</span><br>y_true = np.array(y_true)<br><br><span class="hljs-comment"># 将算法的预测结果转化为二元格式</span><br><span class="hljs-comment"># prediction 1的预测结果</span><br>pred1 = data[:,<span class="hljs-number">2</span>]<br><span class="hljs-comment"># prediction 2的预测结果</span><br>pred2 = data[:,<span class="hljs-number">3</span>]<br><span class="hljs-comment"># prediction 3的预测结果</span><br>pred3 = data[:,<span class="hljs-number">4</span>]<br><span class="hljs-comment"># 计算混淆矩阵</span><br>cm_pred1 = confusion_matrix(y_true, pred1)<br>cm_pred2 = confusion_matrix(y_true, pred2)<br>cm_pred3 = confusion_matrix(y_true, pred3)<br><span class="hljs-comment">#print(cm_pred1,cm_pred2,cm_pred3,sep=&#x27;\n&#x27;)</span><br><br><span class="hljs-comment"># 计算错误率</span><br>acc_pred1 =  accuracy_score(y_true, pred1)<br>acc_pred2 =  accuracy_score(y_true, pred2)<br>acc_pred3 =  accuracy_score(y_true, pred3)<br><br><span class="hljs-comment"># 计算错误率</span><br>err_pred1 = <span class="hljs-number">1</span> - accuracy_score(y_true, pred1)<br>err_pred2 = <span class="hljs-number">1</span> - accuracy_score(y_true, pred2)<br>err_pred3 = <span class="hljs-number">1</span> - accuracy_score(y_true, pred3)<br><br><span class="hljs-comment"># 计算精度</span><br>prec_pred1 = precision_score(y_true, pred1)<br>prec_pred2 = precision_score(y_true, pred2)<br>prec_pred3 = precision_score(y_true, pred3)<br><br><span class="hljs-comment"># 计算查全率</span><br>rec_pred1 = recall_score(y_true, pred1)<br>rec_pred2= recall_score(y_true, pred2)<br>rec_pred3 = recall_score(y_true, pred3)<br><br><span class="hljs-comment">#计算 F1 分数</span><br>f1_pred1 = f1_score(y_true, pred1)<br>f1_pred2 = f1_score(y_true, pred2)<br>f1_pred3 = f1_score(y_true, pred3)<br><br><span class="hljs-comment">#输出结果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 1):\n&quot;</span>, cm_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 2):\n&quot;</span>, cm_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Confusion matrix (prediction 3):\n&quot;</span>, cm_pred3)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 1):&quot;</span>, acc_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 2):&quot;</span>, acc_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy rate (prediction 3):&quot;</span>, acc_pred3)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 1):&quot;</span>, err_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 2):&quot;</span>, err_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error rate (prediction 3):&quot;</span>, err_pred3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 1):&quot;</span>, prec_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 2):&quot;</span>, prec_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision (prediction 3):&quot;</span>, prec_pred3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 1):&quot;</span>, rec_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 2):&quot;</span>, rec_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall (prediction 3):&quot;</span>, rec_pred3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 1):&quot;</span>, f1_pred1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 2):&quot;</span>, f1_pred2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 score (prediction 3):&quot;</span>, f1_pred3)<br></code></pre></td></tr></table></figure>
+<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> csv<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-comment">#导入sklearn计算和计算结果进行对比</span><br><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, mean_absolute_error<br><br><span class="hljs-comment"># 读取CSV文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;experiment_01_dataset_01.csv&#x27;</span>) <span class="hljs-keyword">as</span> csvfile:<br>    csvreader = csv.reader(csvfile)<br>    header = <span class="hljs-built_in">next</span>(csvreader)<br>    data = [row <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> csvreader]<br><br><span class="hljs-comment"># 将数据转换为NumPy数组</span><br>data = np.array(data).astype(<span class="hljs-built_in">float</span>)<br><br><span class="hljs-comment">#计算误差度量的函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">CalculateError</span>(<span class="hljs-params">data</span>):<br>    MSE=[]<br>    RMSE=[]<br>    MAE=[]<br>    <span class="hljs-comment">#第2列到第4列分别对应三种方法的结果</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,<span class="hljs-number">5</span>):<br>        <span class="hljs-comment">#计算MSE</span><br>        MSE.append(np.<span class="hljs-built_in">sum</span>( (data[:,i]-data[:,<span class="hljs-number">1</span>]) **<span class="hljs-number">2</span>,axis=<span class="hljs-number">0</span>) /data.shape[<span class="hljs-number">0</span>])<br>        <span class="hljs-comment">#计算RMSE</span><br>        RMSE.append((np.<span class="hljs-built_in">sum</span>((data[:,i]-data[:,<span class="hljs-number">1</span>]) ** <span class="hljs-number">2</span>, axis=<span class="hljs-number">0</span>)/ data.shape[<span class="hljs-number">0</span>])**(<span class="hljs-number">0.5</span>) )<br>        <span class="hljs-comment">#计算MAE</span><br>        MAE.append(np.<span class="hljs-built_in">sum</span>(<span class="hljs-built_in">abs</span>(data[:,i]-data[:,<span class="hljs-number">1</span>]), axis=<span class="hljs-number">0</span>) / data.shape[<span class="hljs-number">0</span>])<br>    <span class="hljs-keyword">return</span> MSE,RMSE,MAE<br><br><br>MSE,RMSE,MAE=CalculateError(data)<br><span class="hljs-built_in">print</span>(MSE,RMSE,MAE,sep=<span class="hljs-string">&#x27;\n&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;my calculate:&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 1:&quot;</span>, MSE[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 2:&quot;</span>, MSE[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 3:&quot;</span>, MSE[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 1:&quot;</span>, RMSE[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 2:&quot;</span>, RMSE[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 3:&quot;</span>, RMSE[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 1:&quot;</span>, MAE[<span class="hljs-number">0</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 2:&quot;</span>, MAE[<span class="hljs-number">1</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 3:&quot;</span>, MAE[<span class="hljs-number">2</span>])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;----------------------------------&quot;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;sklearn calculate:&quot;</span>)<br><span class="hljs-comment"># 定义真实标签和多个算法的预测结果</span><br>y_true = data[:,<span class="hljs-number">1</span>]<br>prediction_1 = data[:,<span class="hljs-number">2</span>]<br>prediction_2 = data[:,<span class="hljs-number">3</span>]<br>prediction_3 = data[:,<span class="hljs-number">4</span>]<br><br><span class="hljs-comment"># 计算MSE</span><br>mse_1 = mean_squared_error(y_true, prediction_1)<br>mse_2 = mean_squared_error(y_true, prediction_2)<br>mse_3 = mean_squared_error(y_true, prediction_3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 1:&quot;</span>, mse_1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 2:&quot;</span>, mse_2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MSE of prediction 3:&quot;</span>, mse_3)<br><br><span class="hljs-comment"># 计算RMSE</span><br>rmse_1 = np.sqrt(mean_squared_error(y_true, prediction_1))<br>rmse_2 = np.sqrt(mean_squared_error(y_true, prediction_2))<br>rmse_3 = np.sqrt(mean_squared_error(y_true, prediction_3))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 1:&quot;</span>, rmse_1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 2:&quot;</span>, rmse_2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;RMSE of prediction 3:&quot;</span>, rmse_3)<br><br><span class="hljs-comment"># 计算MAE</span><br>mae_1 = mean_absolute_error(y_true, prediction_1)<br>mae_2 = mean_absolute_error(y_true, prediction_2)<br>mae_3 = mean_absolute_error(y_true, prediction_3)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 1:&quot;</span>, mae_1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 2:&quot;</span>, mae_2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;MAE of prediction 3:&quot;</span>, mae_3)<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Machine-learning-experiments/" class="category-chain-item">Machine learning experiments</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/machine-learning/" class="print-no-link">#machine learning</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Model Evaluation</div>
+      <div>https://sunwuzhou03.github.io/2023/05/06/model evaluation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>sunwuzhou03</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/06/nerual%20network/" title="Neural Networks">
+                        <span class="hidden-mobile">Neural Networks</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
   </aside>
 
 
     </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://sunwuzhou03.github.io/en/2023/05/06/model%20evaluation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/en/images/avatar.gif">
-      <meta itemprop="name" content="sunwuzhou03">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SUN WU ZHOU">
-      <meta itemprop="description" content="This is my English blog. The content and updates are not synchronized with my English blog, and the focus may differ as well. ">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Model Evaluation | SUN WU ZHOU">
-      <meta itemprop="description" content="Criteria and methods for classification and regression model evaluation.">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Model Evaluation
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2023-05-06 21:37:02 / Modified: 21:44:24" itemprop="dateCreated datePublished" datetime="2023-05-06T21:37:02+08:00">2023-05-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/en/categories/Machine-learning-experiments/" itemprop="url" rel="index"><span itemprop="name">Machine learning experiments</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="Word count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Word count in article: </span>
-      <span>7.1k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>6 mins.</span>
-    </span>
+  </div>
 </div>
 
-            <div class="post-description">Criteria and methods for classification and regression model evaluation.</div>
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><h1 id="The-code-are-as-follows"><a href="#The-code-are-as-follows" class="headerlink" title="The code are as follows"></a>The code are as follows</h1><h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> mat</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix, accuracy_score, recall_score, precision_score, f1_score</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取CSV文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;experiment_01_dataset_02.csv&#x27;</span>) <span class="keyword">as</span> csvfile:</span><br><span class="line">    csvreader = csv.reader(csvfile)</span><br><span class="line">    header = <span class="built_in">next</span>(csvreader)</span><br><span class="line">    data = [row <span class="keyword">for</span> row <span class="keyword">in</span> csvreader]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将数据转换为NumPy数组</span></span><br><span class="line">data = np.array(data).astype(<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">CaculatePermance</span>(<span class="params">data</span>):</span><br><span class="line">    accuracy = []<span class="comment">#精度</span></span><br><span class="line">    error_rate=[]<span class="comment">#错误率</span></span><br><span class="line">    precision=[]<span class="comment">#查准率</span></span><br><span class="line">    recall=[]<span class="comment">#查全率</span></span><br><span class="line">    F1=[]<span class="comment">#F1</span></span><br><span class="line">    confusionmatrix=[]<span class="comment">#混淆矩阵</span></span><br><span class="line">    tp=[]<span class="comment">#真正例</span></span><br><span class="line">    fn=[]<span class="comment">#假反例</span></span><br><span class="line">    fp=[]<span class="comment">#假正例</span></span><br><span class="line">    tn=[]<span class="comment">#真反例</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">5</span>):</span><br><span class="line">        <span class="comment">#利用逻辑运算进行错误率和准确率的计算</span></span><br><span class="line">        accuracy.append(np.<span class="built_in">sum</span>(data[:, i] == data[:, <span class="number">1</span>]) / data.shape[<span class="number">0</span>])</span><br><span class="line">        error_rate.append(np.<span class="built_in">sum</span>(data[:, i] != data[:, <span class="number">1</span>]) / data.shape[<span class="number">0</span>])</span><br><span class="line">        <span class="comment">#利用位运算来计算混淆矩阵的参数</span></span><br><span class="line">        tp.append(np.<span class="built_in">sum</span>((data[:, <span class="number">1</span>]==<span class="number">1</span>) &amp; (data[:, i]==<span class="number">1</span>)))</span><br><span class="line">        fn.append(np.<span class="built_in">sum</span>((data[:, <span class="number">1</span>]==<span class="number">1</span>) &amp; (data[:, i]==<span class="number">0</span>)))</span><br><span class="line">        fp.append(np.<span class="built_in">sum</span>((data[:, <span class="number">1</span>]==<span class="number">0</span>) &amp; (data[:, i]==<span class="number">1</span>)))</span><br><span class="line">        tn.append(np.<span class="built_in">sum</span>((data[:, <span class="number">1</span>]==<span class="number">0</span>) &amp; (data[:, i]==<span class="number">0</span>)))</span><br><span class="line">        <span class="comment">#根据混淆矩阵的参数计算查准率，查全率，F1</span></span><br><span class="line">        precision.append((tp[i-<span class="number">2</span>])/(tp[i-<span class="number">2</span>]+fp[i-<span class="number">2</span>]))</span><br><span class="line">        recall.append((tp[i-<span class="number">2</span>])/(tp[i-<span class="number">2</span>]+fn[i-<span class="number">2</span>]))</span><br><span class="line">        F1.append((<span class="number">2</span>*precision[i-<span class="number">2</span>]*recall[i-<span class="number">2</span>])/(precision[i-<span class="number">2</span>]+recall[i-<span class="number">2</span>]))</span><br><span class="line">        confusionmatrix.append([[tn[i-<span class="number">2</span>],fp[i-<span class="number">2</span>]],</span><br><span class="line">                                 [fn[i-<span class="number">2</span>],tp[i-<span class="number">2</span>]]])</span><br><span class="line">    <span class="keyword">return</span> error_rate,accuracy,precision,recall,F1,confusionmatrix</span><br><span class="line"></span><br><span class="line">error_rate,accuracy,precision,recall,F1,confusionmatrix=CaculatePermance(data)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(error_rate,accuracy,precision,recall,F1,confusionmatrix,sep=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[[tn fp]\n[fn tp]]&quot;</span>)<span class="comment">#混淆矩阵格式</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 1):\n&quot;</span>, mat(confusionmatrix[<span class="number">0</span>]))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 2):\n&quot;</span>, mat(confusionmatrix[<span class="number">1</span>]))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 3):\n&quot;</span>, mat(confusionmatrix[<span class="number">2</span>]))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 1):&quot;</span>, accuracy[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 2):&quot;</span>, accuracy[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 3):&quot;</span>, accuracy[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 1):&quot;</span>, error_rate[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 2):&quot;</span>, error_rate[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 3):&quot;</span>, error_rate[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 1):&quot;</span>, precision[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 2):&quot;</span>, precision[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 3):&quot;</span>, precision[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 1):&quot;</span>, recall[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 2):&quot;</span>, recall[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 3):&quot;</span>, recall[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 1):&quot;</span>, F1[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 2):&quot;</span>, F1[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 3):&quot;</span>, F1[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;-------------------------------------&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;sklearn caculate&quot;</span>)</span><br><span class="line"></span><br><span class="line">y_true = data[:,<span class="number">1</span>]</span><br><span class="line">predictions = data[:,<span class="number">1</span>:<span class="number">5</span>]</span><br><span class="line"><span class="comment"># 将真实标签转化为二元格式</span></span><br><span class="line">y_true = np.array(y_true)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将算法的预测结果转化为二元格式</span></span><br><span class="line"><span class="comment"># prediction 1的预测结果</span></span><br><span class="line">pred1 = data[:,<span class="number">2</span>]</span><br><span class="line"><span class="comment"># prediction 2的预测结果</span></span><br><span class="line">pred2 = data[:,<span class="number">3</span>]</span><br><span class="line"><span class="comment"># prediction 3的预测结果</span></span><br><span class="line">pred3 = data[:,<span class="number">4</span>]</span><br><span class="line"><span class="comment"># 计算混淆矩阵</span></span><br><span class="line">cm_pred1 = confusion_matrix(y_true, pred1)</span><br><span class="line">cm_pred2 = confusion_matrix(y_true, pred2)</span><br><span class="line">cm_pred3 = confusion_matrix(y_true, pred3)</span><br><span class="line"><span class="comment">#print(cm_pred1,cm_pred2,cm_pred3,sep=&#x27;\n&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算错误率</span></span><br><span class="line">acc_pred1 =  accuracy_score(y_true, pred1)</span><br><span class="line">acc_pred2 =  accuracy_score(y_true, pred2)</span><br><span class="line">acc_pred3 =  accuracy_score(y_true, pred3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算错误率</span></span><br><span class="line">err_pred1 = <span class="number">1</span> - accuracy_score(y_true, pred1)</span><br><span class="line">err_pred2 = <span class="number">1</span> - accuracy_score(y_true, pred2)</span><br><span class="line">err_pred3 = <span class="number">1</span> - accuracy_score(y_true, pred3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算精度</span></span><br><span class="line">prec_pred1 = precision_score(y_true, pred1)</span><br><span class="line">prec_pred2 = precision_score(y_true, pred2)</span><br><span class="line">prec_pred3 = precision_score(y_true, pred3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算查全率</span></span><br><span class="line">rec_pred1 = recall_score(y_true, pred1)</span><br><span class="line">rec_pred2= recall_score(y_true, pred2)</span><br><span class="line">rec_pred3 = recall_score(y_true, pred3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算 F1 分数</span></span><br><span class="line">f1_pred1 = f1_score(y_true, pred1)</span><br><span class="line">f1_pred2 = f1_score(y_true, pred2)</span><br><span class="line">f1_pred3 = f1_score(y_true, pred3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 1):\n&quot;</span>, cm_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 2):\n&quot;</span>, cm_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Confusion matrix (prediction 3):\n&quot;</span>, cm_pred3)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 1):&quot;</span>, acc_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 2):&quot;</span>, acc_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Accuracy rate (prediction 3):&quot;</span>, acc_pred3)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 1):&quot;</span>, err_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 2):&quot;</span>, err_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Error rate (prediction 3):&quot;</span>, err_pred3)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 1):&quot;</span>, prec_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 2):&quot;</span>, prec_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Precision (prediction 3):&quot;</span>, prec_pred3)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 1):&quot;</span>, rec_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 2):&quot;</span>, rec_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Recall (prediction 3):&quot;</span>, rec_pred3)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 1):&quot;</span>, f1_pred1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 2):&quot;</span>, f1_pred2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;F1 score (prediction 3):&quot;</span>, f1_pred3)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment">#导入sklearn计算和计算结果进行对比</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取CSV文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;experiment_01_dataset_01.csv&#x27;</span>) <span class="keyword">as</span> csvfile:</span><br><span class="line">    csvreader = csv.reader(csvfile)</span><br><span class="line">    header = <span class="built_in">next</span>(csvreader)</span><br><span class="line">    data = [row <span class="keyword">for</span> row <span class="keyword">in</span> csvreader]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将数据转换为NumPy数组</span></span><br><span class="line">data = np.array(data).astype(<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#计算误差度量的函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">CalculateError</span>(<span class="params">data</span>):</span><br><span class="line">    MSE=[]</span><br><span class="line">    RMSE=[]</span><br><span class="line">    MAE=[]</span><br><span class="line">    <span class="comment">#第2列到第4列分别对应三种方法的结果</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">5</span>):</span><br><span class="line">        <span class="comment">#计算MSE</span></span><br><span class="line">        MSE.append(np.<span class="built_in">sum</span>( (data[:,i]-data[:,<span class="number">1</span>]) **<span class="number">2</span>,axis=<span class="number">0</span>) /data.shape[<span class="number">0</span>])</span><br><span class="line">        <span class="comment">#计算RMSE</span></span><br><span class="line">        RMSE.append((np.<span class="built_in">sum</span>((data[:,i]-data[:,<span class="number">1</span>]) ** <span class="number">2</span>, axis=<span class="number">0</span>)/ data.shape[<span class="number">0</span>])**(<span class="number">0.5</span>) )</span><br><span class="line">        <span class="comment">#计算MAE</span></span><br><span class="line">        MAE.append(np.<span class="built_in">sum</span>(<span class="built_in">abs</span>(data[:,i]-data[:,<span class="number">1</span>]), axis=<span class="number">0</span>) / data.shape[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> MSE,RMSE,MAE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MSE,RMSE,MAE=CalculateError(data)</span><br><span class="line"><span class="built_in">print</span>(MSE,RMSE,MAE,sep=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;my calculate:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 1:&quot;</span>, MSE[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 2:&quot;</span>, MSE[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 3:&quot;</span>, MSE[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 1:&quot;</span>, RMSE[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 2:&quot;</span>, RMSE[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 3:&quot;</span>, RMSE[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 1:&quot;</span>, MAE[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 2:&quot;</span>, MAE[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 3:&quot;</span>, MAE[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;----------------------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;sklearn calculate:&quot;</span>)</span><br><span class="line"><span class="comment"># 定义真实标签和多个算法的预测结果</span></span><br><span class="line">y_true = data[:,<span class="number">1</span>]</span><br><span class="line">prediction_1 = data[:,<span class="number">2</span>]</span><br><span class="line">prediction_2 = data[:,<span class="number">3</span>]</span><br><span class="line">prediction_3 = data[:,<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算MSE</span></span><br><span class="line">mse_1 = mean_squared_error(y_true, prediction_1)</span><br><span class="line">mse_2 = mean_squared_error(y_true, prediction_2)</span><br><span class="line">mse_3 = mean_squared_error(y_true, prediction_3)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 1:&quot;</span>, mse_1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 2:&quot;</span>, mse_2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE of prediction 3:&quot;</span>, mse_3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算RMSE</span></span><br><span class="line">rmse_1 = np.sqrt(mean_squared_error(y_true, prediction_1))</span><br><span class="line">rmse_2 = np.sqrt(mean_squared_error(y_true, prediction_2))</span><br><span class="line">rmse_3 = np.sqrt(mean_squared_error(y_true, prediction_3))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 1:&quot;</span>, rmse_1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 2:&quot;</span>, rmse_2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;RMSE of prediction 3:&quot;</span>, rmse_3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算MAE</span></span><br><span class="line">mae_1 = mean_absolute_error(y_true, prediction_1)</span><br><span class="line">mae_2 = mean_absolute_error(y_true, prediction_2)</span><br><span class="line">mae_3 = mean_absolute_error(y_true, prediction_3)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 1:&quot;</span>, mae_1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 2:&quot;</span>, mae_2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MAE of prediction 3:&quot;</span>, mae_3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/en/tags/machine-learning/" rel="tag"># machine learning</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/en/2023/05/06/nerual%20network/" rel="prev" title="Neural Networks">
-                  <i class="fa fa-chevron-left"></i> Neural Networks
-                </a>
-            </div>
-            <div class="post-nav-item">
-            </div>
-          </div>
-    </footer>
-  </article>
+  </div>
 </div>
 
+    
 
-
-
-
-
-</div>
+    
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="footer-inner">
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">sunwuzhou03</span>
-</div>
-<div class="wordcount">
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
-    </span>
-      <span>Word count total: </span>
-    <span title="Word count total">29k</span>
-  </span>
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-      <span>Reading time total &asymp;</span>
-    <span title="Reading time total">26 mins.</span>
-  </span>
-</div>
-
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+  
+  
+</div>
+
   </footer>
 
+  <!-- Scripts -->
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/en/js/comments.js"></script><script src="/en/js/utils.js"></script><script src="/en/js/motion.js"></script><script src="/en/js/schemes/muse.js"></script><script src="/en/js/next-boot.js"></script>
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
 
 
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
 
   
 
-
-
-
-
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
