@@ -15,7 +15,10 @@ git add .
 git commit -m "提交说明"
 
 # 推送更改到GitHub仓库
-git push "$repository_url" master
+git push "$repository_url" main
 
 # 输出完成信息
 echo "提交已成功推送到GitHub仓库！"
+
+# 等待用户按下任意键后退出脚本
+read -n 1 -s -r -p "按下任意键退出脚本..."
