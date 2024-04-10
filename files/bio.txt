@@ -1,9 +1,11 @@
-Welcome! I am Wuzhou SUN, a 21-year-old third year Artificial Intelligence bachelor's student currently enrolled in Mao Yisheng Honors College at the Southwest Jiaotong University. I'm currently on a semester exchange program in Department of Computing at the Hong Kong Polytechnic University.
+Other information about me.
 
-My research interests are in areas related to reinforcement learning.
+2021.09-2022.09: Major in Safety Engineering in the Transportation and Logistics Engineering College of the Southwest Jiaotong University.
 
-Now I am as a research assistant supervised by Dr. Hailong Huang in the AIMS group at the Hong Kong Polytechnic University. My project involved using reinforcement learning, computer vision techniques to develop an automated evaluation system for solo badminton matches. More information about my work can be found on my GitHub repository: SoloShuttlePose.
+2022.09-2023.09: Major in Artificial Intelligence in Mao Yisheng Honors College of the Southwest Jiaotong University.
 
-During the period from March 2023 to July 2023, I had the opportunity to study Reinforcement Learning under the guidance of Prof. Luo Haonan. I implemented most of the main single-agent Reinforcement Learning algorithms, which you can find in my github repository: Single-Agent-RL-Algorithm.
+2023.09-2023.12: Major in Artificial Intelligence and Fintech as an exchange student in COMP Department of the Hong Kong Polytechnic University.
+
+2024.01-Now: Gaping
 
 If you have any questions about my blogs or are interested in me, please feel free to email me!
