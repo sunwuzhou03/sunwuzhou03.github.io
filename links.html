@@ -1,13 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>links</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Links</title>
+    <link rel="icon" type="image/x-icon" href="images/logo2.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .heading {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         .link-item {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .link-item:hover {
+            background-color: #f9f9f9;
         }
 
         .link-item img {
@@ -15,25 +39,33 @@
             height: 50px;
             margin-right: 10px;
         }
+
+        a {
+            color: #2B5597;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
-    <h1>links</h1>
-    <div id="links-container"></div>
+    <div class="container">
+        <h1 class="heading">Links</h1>
+        <div id="links-container" class="row"></div>
+    </div>
 
     <script>
-        // 定义友情链接的数据
         const links = [
             "https://xhhdd.cc/",
             "https://blog.wangzixi.top/",
             "https://septemus.github.io/"
         ];
 
-        // 获取容器元素
         const container = document.getElementById('links-container');
 
-        // 动态创建友情链接
         links.forEach((link) => {
             fetch(link)
                 .then(response => response.text())
@@ -43,12 +75,11 @@
                     const title = doc.querySelector('title') ? doc.querySelector('title').textContent.trim() : 'No Title';
                     let imageSrc = doc.querySelector('link[rel="icon"]') ? doc.querySelector('link[rel="icon"]').getAttribute('href') : 'default-image.jpg';
                     if (!imageSrc.startsWith('http')) {
-                        // 如果图标链接不是绝对路径，则转换为绝对路径
                         imageSrc = new URL(imageSrc, link).href;
                     }
 
                     const div = document.createElement('div');
-                    div.className = 'link-item';
+                    div.className = 'link-item col-md-4 col-xs-12';
                     div.innerHTML = `
                         <img src="${imageSrc}" alt="${title}">
                         <a href="${link}" target="_blank">${title}</a>
@@ -58,7 +89,7 @@
                 .catch(error => {
                     console.error('Error fetching link:', error);
                     const div = document.createElement('div');
-                    div.className = 'link-item';
+                    div.className = 'link-item col-md-4 col-xs-12';
                     div.innerHTML = `
                         <img src="default-image.jpg" alt="网站图片">
                         <a href="${link}" target="_blank">网站名称不可用</a>
@@ -67,6 +98,10 @@
                 });
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
